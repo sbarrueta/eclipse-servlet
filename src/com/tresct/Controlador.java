@@ -1,6 +1,9 @@
 package com.tresct;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,14 +28,15 @@ public class Controlador extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter()
-		.append("<html>")
-		.append("<body>")
-		.append("<h1>")
-		.append("Served a t : ")
-		.append(request.getContextPath())
-		.append("</h1>");
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        Enumeration e = request.getHeaderNames();
+        while (e.hasMoreElements()) {
+            String name = (String)e.nextElement();
+            String value = request.getHeader(name);
+            out.println(name + " = " + value);
+        }
 	}
 
 	/**
